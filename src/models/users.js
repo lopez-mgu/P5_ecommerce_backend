@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema, model } = mongoose;
 const bcrypt = require('bcryptjs');
+const uniqueValidator = require('mongoose-unique-validator');
 
 const UserSchema = new Schema({
     name:{
@@ -16,7 +17,8 @@ const UserSchema = new Schema({
     },
     email:{
         type:String,
-        required: true
+        required: true,
+        unique: true
     },
     password:{
         type: String,
@@ -27,12 +29,14 @@ const UserSchema = new Schema({
     timestamps: true
 })
 
+UserSchema.plugin(uniqueValidator, { message: 'Email already exist' });
+
 UserSchema.pre('save', function(next){
-    console.log('--------------')
+    console.log('---before------')
     console.log(this.email, this.password)
     console.log('--------------')
     const hasdhedPassword = bcrypt.hashSync(this.password, 12)
-    console.log('---despues------')
+    console.log('---after------')
     console.log(this.email, this.password)
     console.log('--------------')
     this.password = hasdhedPassword;
