@@ -11,7 +11,7 @@ router.get('/', async (_, res) =>{
 })
 
 //GetSingleProduct by ID
-router.get('/:id', async (_, res) =>{
+router.get('/:id', async (req, res) =>{
     const { id } = req.params
     const product = await getSingleProduct(id)
     res.send(product)

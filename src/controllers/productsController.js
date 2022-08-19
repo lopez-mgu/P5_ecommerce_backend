@@ -4,7 +4,7 @@ const getProducts = async () => {
     return productModel.find({});
 }
 
-const getSingleProduct = async () => {
+const getSingleProduct = async (_id) => {
     return productModel.findOne({_id});
 }
 
